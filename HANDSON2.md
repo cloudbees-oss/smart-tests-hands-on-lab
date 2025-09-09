@@ -7,6 +7,8 @@ Along the way, you will learn the major concepts of Smart Test.
 To experiment with Smart Tests, first, let's clone your repository locally.
 How to do this depends on your project.
 
+If you already cloned repository, please skip cloning the repository and move to the repo directory.
+
 ```
 git clone ...
 cd your/repository
@@ -45,15 +47,8 @@ Visit https://app.launchableinc.com/organizations/<ORG>/workspaces/<WORKSPACE>/d
 What just happened? Smart Tests recorded the current HEAD of your local repository as the build,
 using the name given.
 
-By default, this command looks at the current directory.
-If you have multiple repositories, you'll use the `--source` option to direct the command to the right repositories.
-
-```
-launchable record build --name mychange1 --source app=path/to/repo1 --source test=path/to/repo2 ...
-```
-
-In the above example, you are telling Smart Tests that the build consists of two repositories: `app` and `test`.
-
+>[!NOTE]
+> If you have multiple repositories, please check [this document](https://www.launchableinc.com/docs/sending-data-to-launchable/using-the-launchable-cli/recording-builds-with-the-launchable-cli/recording-builds-from-multiple-repositories/) to let Smart Tests know that the build consists of your repositories.
 
 
 Since this was the first time you recorded a build, Smart Tests needed to transfer relatively
