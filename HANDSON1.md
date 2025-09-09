@@ -15,6 +15,19 @@ You can install it with pip:
 pip3 install --upgrade launchable~=1.0
 ```
 
+> [!TIP]
+> If you encounter `externally managed error`
+> <details>
+>
+> Try installing `pipx` and use it.
+> see: https://pipx.pypa.io/stable/installation/
+>
+> ```
+> pipx install launchable~=1.0
+> ```
+> </details>
+
+
 Let’s check that it’s installed correctly:
 
 ```
