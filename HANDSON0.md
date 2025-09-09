@@ -1,4 +1,4 @@
-# Lab 0. Prerequisites
+# Lab 0. Prerequisites 
 
 The following are prerequisites for this workshop:
 
