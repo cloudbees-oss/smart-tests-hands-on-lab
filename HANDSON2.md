@@ -71,12 +71,12 @@ When you record a new test session, Smart Tests will return a session ID, which 
 Now, let's have Smart Tests select the best set of tests to run for this test session.
 
  ```
- launchable subset --session $(cat session.txt) --get-tests-from-guess file > subset.txt
+ launchable subset --use-case one-commit --session $(cat session.txt) --get-tests-from-guess file > subset.txt
  less subset.txt
 ```
 
 Since you haven't run any tests yet, Smart Tests will select files in your repository
-that looks like tests, and order them such that tests relevant to most recent changes are prioritized.
+that looks like tests (`--get-tests-from-guess`), and order them such that tests relevant to most recent change (`--use-case one-commit`) are prioritized.
 
 > [!TIP]
 > We'll use this baseline `subset.txt` later to see how additional changes affect the test selection,
@@ -109,7 +109,7 @@ Create a new test session against the new build and request a subset again:
 
 ```
 launchable record session --build mychange2 > session2.txt
-launchable subset --session $(cat session2.txt) --get-tests-from-guess file > subset2.txt
+launchable subset --use-case one-commit --session $(cat session2.txt) --get-tests-from-guess file > subset2.txt
 ```
 
 Compare the results between the first and the second subsets:
