@@ -8,6 +8,10 @@ The following are prerequisites for this workshop:
 
 1. Prepare a repository that contains test code where you want to try PTS. We recommend using a repository you normally work with. (You will not need to push any code during the hands-on.)
 
+1. Share your GitHub ID with us, so that we can add you as a collaborator to the workshop.
+
+1. Follow the invitation link we send to you, and perform the sign-up process.
+
 ## Install Launchable command
 
 You interact with Smart Tests using a command line tool called `launchable`.
