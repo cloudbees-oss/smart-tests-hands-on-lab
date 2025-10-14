@@ -4,6 +4,16 @@
 > Until the successful workshop kata is established, the target audience of this document is assumed to be
 > sufficiently familiar with Smart Tests. This document is not yet meant for CloudBees SEs at large yet.
 
+## Collect test data from customer
+Before the workshop, ask the customer to share **JUnit XML reports** from several of their actual CI test runs.
+
+- Request atleast 6 recent runs worth of data (spanning 1–2 weeks)
+- Include runs with some test failures** and captured stdout/stderr
+- Once received, do a sanity check and verify the data
+- Then, share the data to engineering team for import and setup
+
+This allows the workshop to start with the customer’s own test data visible in the Smart Tests dashboard (Unhealthy tests, Trends and AI-based failure grouping, etc.)
+
 ## 1 week prior: Your prep
 * Before the actual workshop, go to [customer success storefront](https://cloudbees.atlassian.net/wiki/spaces/LCHCTS/pages/4448921585/Storefront+Launchable+Customer+Success), create a new workspace, then
   use the workspace flag app to (1) enable PTS, and (2) set the state to "HANDS_ON_LAB_V2"
