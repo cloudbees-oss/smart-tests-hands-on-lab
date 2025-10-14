@@ -4,6 +4,11 @@ The following are prerequisites for this workshop:
 
 1. Look into your internal infosec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code, nor are they used to train any AI models. See [data privacy and protection policy](https://www.launchableinc.com/docs/resources/policies/data-privacy-and-protection/) for more details.
 
+1. Provide recent test results data from your actual project. This allows us to personalize your workshop experience by pre-populating Smart Tests dashboards and highlighting insights such as _Unhealthy tests_, _Trends_ and _AI-based failure triage_.
+   - Provide **atleast 6 recent runs** worth of test results (ideally spanning 1–2 weeks)
+   - Include runs with both **passing and failing tests**
+   - Make sure `stdout` and `stderr` logs are captured in your reports
+
 1. You need a computer with `git`, `python3`, and `java` installed.
 
 1. Prepare a repository that contains test code where you want to try PTS. We recommend using a repository you normally work with. (You will not need to push any code during the hands-on.)
