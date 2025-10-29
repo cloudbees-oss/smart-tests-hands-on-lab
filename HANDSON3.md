@@ -195,7 +195,7 @@ Update `.github/workflows/pre-merge.yml` as follows:
   run: |
     launchable record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
     launchable subset --session $(cat session.txt) --target 50% maven src/test/java > launchable-subset.txt
-    cat launchable-subet.txt
+    cat launchable-subset.txt
 ```
 
 </details>
