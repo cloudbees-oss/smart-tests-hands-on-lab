@@ -41,3 +41,4 @@ jobs:
   
       - name: Test
         run: mvn test
+        run: mvn test -Dsurefire.includesFile=launchable-subset.txt
