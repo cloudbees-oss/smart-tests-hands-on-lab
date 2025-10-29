@@ -41,6 +41,7 @@ jobs:
   
       - name: Test
         run: mvn test -Dsurefire.includesFile=launchable-subset.txt
+        
       - name: Launchable record tests
         if: always()
         run: launchable record tests --session $(cat session.txt) maven ./**/target/surefire-reports
