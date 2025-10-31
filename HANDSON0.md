@@ -72,3 +72,13 @@ launchable --help
 
 >[!TIP]
 > Alternatively, you can use the `launchable` command in a Docker container: `docker run --rm cloudbees/launchable --help`
+
+## (Optional) Install Jenkins plugin
+If your CI system is Jenkins, you can install [the Smart Tests Jenkins plugin](launchable.hpi) to your Jenkins
+and have it send your test results to Smart Tests. During the workshop, we will look at the data it collected to
+reveal actionable insights to manage & improve your test suite.
+
+When installed and configured, the plugin will automatically send test results Jenkins is seeing to Launchable
+via its `junit` and other compatible steps.
+
+Post installation, you need to go to system configuration screen to set the API token.
