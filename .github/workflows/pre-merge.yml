@@ -24,5 +24,7 @@ jobs:
         run: pip install --user --upgrade launchable~=1.0
       - name: Compile
         run: mvn compile
+      - name: Launchable verify
+        run: launchable verify
       - name: Test
         run: mvn test
