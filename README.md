@@ -1,6 +1,9 @@
 
 # Launchable Smart Tests Workshop
 
+## Change History
+- SN: Making a simple change
+
 ## Workshop Overview
 
 Welcome to the Launchable Smart Tests Workshop! This hands-on session is designed to help you implement predictive test selection and analysis within your Git repositories. Throughout this workshop, you'll optimize your test pipeline to ensure that only the most relevant tests are executed with every code change.
