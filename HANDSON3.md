@@ -6,13 +6,13 @@ In this section, you will use a toy Java project in this repository and its deli
 Your instructor should have created a pull request to `launchableinc/hands-on-lab`. This is where the toy Java
 project resides, and in this PR we'll modify its CI pipeline.
 
-# Integrating with Launchable
+# Integrating with Smart Tests
 
 Start with the PR, and follow the "edit CI script" link in the PR description to open the CI script in the editor.
 
 <img width="742" height="425" alt="image" src="https://github.com/user-attachments/assets/b4e5749a-a226-4607-af50-58d96d879848" />
 
-## Add the Launchable CLI to workflow
+## Add the Smart Tests CLI to workflow
 Update `.github/workflows/pre-merge.yml` as follows:
 
 ```diff
@@ -22,8 +22,8 @@ Update `.github/workflows/pre-merge.yml` as follows:
 +     - uses: actions/setup-python@v5
 +       with:
 +         python-version: '3.13'
-+     - name: Install Launchable command
-+       run: pip install --user --upgrade launchable~=1.0
++     - name: Install Smart Tests CLI
++       run: pip install --user --upgrade smart-tests-cli~=2.0
       - name: Compile
         run: mvn compile
 ```
@@ -34,22 +34,22 @@ Update `.github/workflows/pre-merge.yml` as follows:
 - uses: actions/setup-python@v5
   with:
     python-version: '3.13'
-- name: Install Launchable command
-  run: pip install --user --upgrade launchable~=1.0
+- name: Install Smart Tests CLI
+  run: pip install --user --upgrade smart-tests-cli~=2.0
 ```
 
 </details>
 <br>
 
-## Verify the Launchable CLI setup
-Next, to help you make sure that you have everything set up correctly, we have the `launchable verify` command, so we'll add it to the workflow as well.
+## Verify the Smart Tests CLI setup
+Next, to help you make sure that you have everything set up correctly, we have the `smart-tests verify` command, so we'll add it to the workflow as well.
 
 Update `.github/workflows/pre-merge.yml` as follows:
 ```diff
-       - name: Install Launchable command
-         run: pip install --user --upgrade launchable~=1.0
-+      - name: Launchable verify
-+        run: launchable verify
+       - name: Install Smart Tests CLI
+         run: pip install --user --upgrade smart-tests-cli~=2.0
++      - name: Smart Tests verify
++        run: smart-tests verify
        - name: Compile
          run: mvn compile
        - name: Test
@@ -59,8 +59,8 @@ Update `.github/workflows/pre-merge.yml` as follows:
 <summary>Raw texts for copying</summary>
 
 ```
-- name: Launchable verify
-  run: launchable verify
+- name: Smart Tests verify
+  run: smart-tests verify
 ```
 
 </details>
@@ -89,16 +89,16 @@ Using the following screenshot as an example, click the status symbol, and selec
 
 <img width="723" height="169" alt="image" src="https://github.com/user-attachments/assets/997dd7ef-87a7-4d8d-b917-b37d5b46895a" />
 
-If everything goes as expected, in the "Launchable verify" section, you should see a message like this:
+If everything goes as expected, in the "Smart Tests verify" section, you should see a message like this:
 
 ```
 Organization: launchable-demo
 Workspace: hands-on-lab
 Proxy: None
 Platform: 'Linux-6.8.0-1017-azure-x86_64-with-glibc2.39'
-Python version: '3.12.8'
+Python version: '3.13.0'
 Java command: 'java'
-launchable version: '1.110.0'
+smart-tests version: '2.2.0'
 Your CLI configuration is successfully verified 🎉
 ```
 
@@ -129,16 +129,16 @@ with:
 </details>
 <br>
 
-## Record build with Launchable CLI
-Next, execute the `launchable record build` command.
+## Record build with Smart Tests CLI
+Next, execute the `smart-tests record build` command.
 
 Update `.github/workflows/pre-merge.yml` as follows:
 ```diff
-run: pip install --user --upgrade launchable~=1.0
-       - name: Launchable verify
-         run: launchable verify
-+      - name: Launchable record build
-+        run: launchable record build --name ${{ github.run_id }}
+run: pip install --user --upgrade smart-tests-cli~=2.0
+       - name: Smart Tests verify
+         run: smart-tests verify
++      - name: Smart Tests record build
++        run: smart-tests record build --build ${{ github.run_id }}
        - name: Compile
          run: mvn compile
    worker-node-1:
@@ -148,8 +148,8 @@ run: pip install --user --upgrade launchable~=1.0
 <summary>Raw text for copying</summary>
 
 ```
-- name: Launchable record build
-  run: launchable record build --name ${{ github.run_id }}
+- name: Smart Tests record build
+  run: smart-tests record build --build ${{ github.run_id }}
 ```
 
 </details>
@@ -168,7 +168,7 @@ Launchable recorded build 3096604891 to workspace organization/workspace with co
 # Running test session by predicting a subset
 Now, we will start a test session. We have also looked at this in Lab 2.
 
-## Add Launchable subset command
+## Add Smart Tests subset command
 We will first obtain the subset of tests that should be run for this build. then pass it to the test runner, which is Maven in this case.
 
 Notice the `--observation` flag. This is [the training wheel mode](https://www.launchableinc.com/docs/features/predictive-test-selection/observing-subset-behavior/). With this flag, Smart Test
@@ -179,11 +179,11 @@ Update `.github/workflows/pre-merge.yml` as follows:
 ```diff
       - name: Compile
         run: mvn compile
-+     - name: Launchable subset
++     - name: Smart Tests subset
 +       run: |
-+         launchable record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
-+         launchable subset --session $(cat session.txt) --target 50%  maven src/test/java > launchable-subset.txt
-+         cat launchable-subset.txt
++         smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
++         smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
++         cat smart-tests-subset.txt
       - name: Test
         run: mvn test
 ```
@@ -191,11 +191,11 @@ Update `.github/workflows/pre-merge.yml` as follows:
 <summary>Raw text for copying</summary>
 
 ```
-- name: Launchable subset
+- name: Smart Tests subset
   run: |
-    launchable record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
-    launchable subset --session $(cat session.txt) --target 50% maven src/test/java > launchable-subset.txt
-    cat launchable-subset.txt
+    smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
+    smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
+    cat smart-tests-subset.txt
 ```
 
 </details>
@@ -224,13 +224,13 @@ Next, pass this subset to the test runner.
 
       - name: Test
 -       run: mvn test
-+       run: mvn test -Dsurefire.includesFile=launchable-subset.txt
++       run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
 ```
 <details>
 <summary>Raw text for copying</summary>
 
 ```
-run: mvn test -Dsurefire.includesFile=launchable-subset.txt
+run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
 ```
 
 </details>
@@ -239,27 +239,27 @@ run: mvn test -Dsurefire.includesFile=launchable-subset.txt
 Commit changes directly to your branch by clicking on **Commit changes**.
 
 # Record test results
-After tests are run, you need to report the test results to Launchable. This is done by the **launchable record tests** command.
+After tests are run, you need to report the test results to Smart Tests. This is done by the **smart-tests record tests** command.
 
-If the test fail, GitHub Actions will stop the job and the test results will not be reported to Launchable. Therefore, you need to set `if: always()` so that test results are always reported.
+If the test fail, GitHub Actions will stop the job and the test results will not be reported to Smart Tests. Therefore, you need to set `if: always()` so that test results are always reported.
 
-## Record tests to Launchable
+## Record tests to Smart Tests
 
 Update `.github/workflows/pre-merge.yml` as follows:
 ```diff
       - name: Test
-        run: mvn test -Dsurefire.includesFile=launchable-subset.txt
-+     - name: Launchable record tests
+        run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
++     - name: Smart Tests record tests
 +       if: always()
-+       run: launchable record tests --session $(cat session.txt) maven ./**/target/surefire-reports
++       run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports
 ```
 <details>
 <summary>Raw text for copying</summary>
 
 ```
-- name: Launchable record tests
+- name: Smart Tests record tests
   if: always()
-  run: launchable record tests --session $(cat session.txt) maven ./**/target/surefire-reports
+  run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports
 ```
 
 </details>
@@ -281,11 +281,11 @@ If this was a real project, we'd keep the `--observation` flag until we accumula
 evaluate its performance & roll out. In this workshop, we can skip this step and go live right away.
 
 ```diff
-      - name: Launchable subset
+      - name: Smart Tests subset
         run: |
-          launchable record session --build ${{ github.run_id }} > session.txt
--         launchable subset --session $(cat session.txt) --observation maven src/test/java > launchable-subset.txt
-+         launchable subset --session $(cat session.txt) maven src/test/java > launchable-subset.txt
+          smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
+-         smart-tests subset --session @session.txt --observation --target 50% maven src/test/java > smart-tests-subset.txt
++         smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
       - name: Test
         run: mvn test
 ```

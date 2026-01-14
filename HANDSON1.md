@@ -24,22 +24,22 @@ Click **Copy** key and copy API key.
 
 <img src="https://github.com/user-attachments/assets/5025328b-fc20-4eb1-b7f2-346aab60e013" width="50%">
 
-The `launchable` command expects an API token to be set in the `LAUNCHABLE_TOKEN` environment variable.
+The `smart-tests` command expects an API token to be set in the `SMART_TESTS_TOKEN` environment variable.
 
 ```sh
-export LAUNCHABLE_TOKEN=<API TOKEN>
+export SMART_TESTS_TOKEN=<API TOKEN>
 ```
 
 
 ## Make sure everything is in order
 
-`launchable verify` command is a convenient way to make sure all the prerequisites are met and the API key is valid:
+`smart-tests verify` command is a convenient way to make sure all the prerequisites are met and the API key is valid:
 
 ```
-launchable verify
+smart-tests verify
 ```
 
-If you see a message like this, you’re all set:
+If you see a message like this, you're all set:
 
 ```
 Organization: 'organization'
@@ -48,7 +48,7 @@ Proxy: None
 Platform: 'Linux-6.10.14-linuxkit-aarch64-with-glibc2.36'
 Python version: '3.11.13'
 Java command: 'java'
-launchable version: '1.106.2'
+smart-tests version: '2.2.0'
 Your CLI configuration is successfully verified 🎉
 ```
 
