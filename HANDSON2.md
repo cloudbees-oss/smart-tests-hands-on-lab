@@ -78,9 +78,24 @@ Now, let's have Smart Tests select the best set of tests to run for this test se
 Since you haven't run any tests yet, Smart Tests will select files in your repository
 that looks like tests (`--get-tests-from-guess`), and order them such that tests relevant to most recent change (`--use-case one-commit`) are prioritized.
 
+The output will look like this:
+
+```
+Smart Tests created subset <SUBSET_ID> for build mychange1 (test session <TEST_SESSION_ID>) in workspace <ORG>/<WORKSPACE>
+
+|           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
+|-----------|--------------|--------------------------|----------------------------|
+| Subset    |          120 |                   100.00 |                       0.00 |
+| Remainder |            0 |                     0.00 |                       0.00 |
+|           |              |                          |                            |
+| Total     |          120 |                   100.00 |                       0.00 |
+
+Run `smart-tests inspect subset --subset-id <SUBSET_ID>` to view full subset details
+```
+
 > [!TIP]
-> We'll use this baseline `subset.txt` later to see how additional changes affect the test selection,
-> so please keep this file around.
+> Note the **subset ID** (e.g., `<SUBSET_ID>` in the example above). We'll use this ID later to compare
+> how additional changes affect the test selection, so please keep it noted.
 
 
 As you run and record test results, Smart Tests will learn from the results and improve its selection.

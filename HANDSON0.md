@@ -9,7 +9,7 @@ The following are prerequisites for this workshop:
    - Include runs with both **passing and failing tests**
    - Make sure `stdout` and `stderr` logs are captured in your reports
 
-1. You need a computer with `git`, `python3`, and `java` installed.
+1. You need a computer with `git`, `python3` (3.13 or later), and `java` installed.
 
 1. Prepare a repository that contains test code where you want to try PTS. We recommend using a repository you normally work with. (You will not need to push any code during the hands-on.)
 
@@ -58,11 +58,11 @@ smart-tests --help
 > This command will produce output like this:
 >
 > ```
-> Location: /home/kohsuke/anaconda3/lib/python3.9/site-packages
+> Location: /home/kohsuke/anaconda3/lib/python3.13/site-packages
 >   ../../../bin/smart-tests
 > ```
 >
-> Concatenate two paths to obtain the location, in the example above, that'd be `/home/kohsuke/anaconda3/lib/python3.9/site-packages/../../../bin/smart-tests`, which is `/home/kohsuke/anaconda3/bin/smart-tests`
+> Concatenate two paths to obtain the location, in the example above, that'd be `/home/kohsuke/anaconda3/lib/python3.13/site-packages/../../../bin/smart-tests`, which is `/home/kohsuke/anaconda3/bin/smart-tests`
 >
 > Add the directory portion of this to `PATH` by trimming the trailing `smart-tests`, like this:
 >
