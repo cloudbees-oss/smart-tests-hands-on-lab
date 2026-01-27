@@ -37,3 +37,6 @@ jobs:
           cat smart-tests-subset.txt        
       - name: Test
         run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
+      - name: Smart Tests record tests
+        if: always()
+        run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports        
