@@ -24,17 +24,17 @@ A build is a specific version of your software that you are testing. It can cons
 
 refs: [Documentation](https://www.launchableinc.com/docs/concepts/build/)
 
-Therefore, before you run your tests, you record a build using `launchable record build`.
+Therefore, before you run your tests, you record a build using `smart-tests record build`.
 
 Move to the locally checked out copy of your software, check out its main branch,
 and run the following command to record a build:
 ```
-launchable record build --name mychange1
+smart-tests record build --build mychange1
 ```
 If you see a message like this, it was successful:
 
 ```
-Launchable transferred 2 more commits from repository <YOUR PATH>
+Launchable recorded 2 more commits from repository <YOUR PATH>
 Launchable recorded build hands-on to workspace <YOUR ORG/WORKSPACE> with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
@@ -55,7 +55,7 @@ Since this was the first time you recorded a build, Smart Tests needed to transf
 large amount of data to its server, including recent commit history, file contents, etc. It
 also has to do a lot of number crunching to prepare for the predictive test selection.
 
-But subsequent calls to `launchable record build` will be much faster, because Smart Tests will only transfer the new commits that you have added since the last build.
+But subsequent calls to `smart-tests record build` will be much faster, because Smart Tests will only transfer the new commits that you have added since the last build.
 
 ## Request and inspect a subset to test
 Now, you declare the start of a new test session; A test session is an act of running tests against a specific build. Test selection and recording of test results are done against a test session.
@@ -63,7 +63,7 @@ Now, you declare the start of a new test session; A test session is an act of ru
  refs: [Documentation](https://www.launchableinc.com/docs/concepts/test-session/)
 
  ```
- launchable record session --build mychange1 > session.txt
+ smart-tests record session --build mychange1 --test-suite my-test-suite > session.txt
  ```
 
 When you record a new test session, Smart Tests will return a session ID, which is stored in `session.txt` file.
@@ -71,16 +71,31 @@ When you record a new test session, Smart Tests will return a session ID, which 
 Now, let's have Smart Tests select the best set of tests to run for this test session.
 
  ```
- launchable subset --use-case one-commit --session $(cat session.txt) --get-tests-from-guess file > subset.txt
+ smart-tests subset --session @session.txt --use-case one-commit --get-tests-from-guess file > subset.txt
  less subset.txt
 ```
 
 Since you haven't run any tests yet, Smart Tests will select files in your repository
 that looks like tests (`--get-tests-from-guess`), and order them such that tests relevant to most recent change (`--use-case one-commit`) are prioritized.
 
+The output will look like this:
+
+```
+Smart Tests created subset <SUBSET_ID> for build mychange1 (test session <TEST_SESSION_ID>) in workspace <ORG>/<WORKSPACE>
+
+|           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
+|-----------|--------------|--------------------------|----------------------------|
+| Subset    |          120 |                   100.00 |                       0.00 |
+| Remainder |            0 |                     0.00 |                       0.00 |
+|           |              |                          |                            |
+| Total     |          120 |                   100.00 |                       0.00 |
+
+Run `smart-tests inspect subset --subset-id <SUBSET_ID>` to view full subset details
+```
+
 > [!TIP]
-> We'll use this baseline `subset.txt` later to see how additional changes affect the test selection,
-> so please keep this file around.
+> Note the **subset ID** (e.g., `<SUBSET_ID>` in the example above). We'll use this ID later to compare
+> how additional changes affect the test selection, so please keep it noted.
 
 
 As you run and record test results, Smart Tests will learn from the results and improve its selection.
@@ -102,20 +117,20 @@ git commit --all --message test
 We now have a new software version to test, so we need to record it as a new build:
 
 ```
-launchable record build --name mychange2
+smart-tests record build --build mychange2
 ```
 
 Create a new test session against the new build and request a subset again:
 
 ```
-launchable record session --build mychange2 > session2.txt
-launchable subset --use-case one-commit --session $(cat session2.txt) --get-tests-from-guess file > subset2.txt
+smart-tests record session --build mychange2 --test-suite my-test-suite > session2.txt
+smart-tests subset --session @session2.txt --use-case one-commit --get-tests-from-guess file > subset2.txt
 ```
 
-Compare the results between the first and the second subsets:
+Compare the results between the first and the second subsets. First, get the subset IDs from the output of the subset commands, then run:
 
 ```
-launchable compare subsets subset.txt subset2.txt
+smart-tests compare subsets --subset-id-before <SUBSET_ID_1> --subset-id-after <SUBSET_ID_2>
 ```
 
 The command should display the rank of every test in those two subsets, and highlight the differences in the rank.

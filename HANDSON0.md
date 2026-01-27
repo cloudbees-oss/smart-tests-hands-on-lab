@@ -9,7 +9,7 @@ The following are prerequisites for this workshop:
    - Include runs with both **passing and failing tests**
    - Make sure `stdout` and `stderr` logs are captured in your reports
 
-1. You need a computer with `git`, `python3`, and `java` installed.
+1. You need a computer with `git`, `python3` (3.13 or later), and `java` installed.
 
 1. Prepare a repository that contains test code where you want to try PTS. We recommend using a repository you normally work with. (You will not need to push any code during the hands-on.)
 
@@ -17,14 +17,14 @@ The following are prerequisites for this workshop:
 
 1. Follow the invitation link we send to you, and perform the sign-up process.
 
-## Install Launchable command
+## Install Smart Tests command
 
-You interact with Smart Tests using a command line tool called `launchable`.
+You interact with Smart Tests using a command line tool called `smart-tests`.
 
 You can install it with pip:
 
 ```
-pip3 install --upgrade launchable~=1.0
+pip3 install --upgrade smart-tests-cli~=2.0
 ```
 
 > [!TIP]
@@ -35,43 +35,40 @@ pip3 install --upgrade launchable~=1.0
 > see: https://pipx.pypa.io/stable/installation/
 >
 > ```
-> pipx install launchable~=1.0
+> pipx install smart-tests-cli~=2.0
 > ```
 > </details>
 
 
-Let’s check that it’s installed correctly:
+Let's check that it's installed correctly:
 
 ```
-launchable --help
+smart-tests --help
 ```
 
 >[!TIP]
-> If `launchable` is not found on your `PATH`
+> If `smart-tests` is not found on your `PATH`
 > <details>
 > Run the following command to find out where `pip3` installed the script:
 >
 > ```
-> pip3 show --files launchable | grep -E 'bin/launchable$|^Location'
+> pip3 show --files smart-tests-cli | grep -E 'bin/smart-tests$|^Location'
 > ```
 >
 > This command will produce output like this:
 >
 > ```
-> Location: /home/kohsuke/anaconda3/lib/python3.9/site-packages
->   ../../../bin/launchable
+> Location: /home/kohsuke/anaconda3/lib/python3.13/site-packages
+>   ../../../bin/smart-tests
 > ```
 >
-> Concatenate two paths to obtain the location, in the example above, that'd be `/home/kohsuke/anaconda3/lib/python3.9/site-packages/../../../bin/launchable`, which is `/home/kohsuke/anaconda3/bin/launchable`
+> Concatenate two paths to obtain the location, in the example above, that'd be `/home/kohsuke/anaconda3/lib/python3.13/site-packages/../../../bin/smart-tests`, which is `/home/kohsuke/anaconda3/bin/smart-tests`
 >
-> Add the directory portion of this to `PATH` by trimming the trailing `launchable`, like this:
+> Add the directory portion of this to `PATH` by trimming the trailing `smart-tests`, like this:
 >
 > ```
 > export PATH=/home/kohsuke/anaconda3/bin:$PATH
 > ```
-
->[!TIP]
-> Alternatively, you can use the `launchable` command in a Docker container: `docker run --rm cloudbees/launchable --help`
 
 ## (Optional) Install Jenkins plugin
 If your CI system is Jenkins, you can install [the Smart Tests Jenkins plugin](launchable.hpi) to your Jenkins

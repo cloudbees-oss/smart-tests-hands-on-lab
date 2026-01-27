@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  LAUNCHABLE_ORGANIZATION: "launchable-demo"
-  LAUNCHABLE_WORKSPACE: "hands-on-lab"
+  SMART_TESTS_ORGANIZATION: "launchable-demo"
+  SMART_TESTS_WORKSPACE: "hands-on-lab"
 
 jobs:
   PreMergeTest:
