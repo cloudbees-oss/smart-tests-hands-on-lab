@@ -71,7 +71,7 @@ When you record a new test session, Smart Tests will return a session ID, which 
 Now, let's have Smart Tests select the best set of tests to run for this test session.
 
  ```
- smart-tests subset --session @session.txt --use-case one-commit --get-tests-from-guess file > subset.txt
+ smart-tests subset file --session @session.txt --use-case one-commit --get-tests-from-guess > subset.txt
  less subset.txt
 ```
 
@@ -124,7 +124,7 @@ Create a new test session against the new build and request a subset again:
 
 ```
 smart-tests record session --build mychange2 --test-suite my-test-suite > session2.txt
-smart-tests subset --session @session2.txt --use-case one-commit --get-tests-from-guess file > subset2.txt
+smart-tests subset file --session @session2.txt --use-case one-commit --get-tests-from-guess > subset2.txt
 ```
 
 Compare the results between the first and the second subsets. First, get the subset IDs from the output of the subset commands, then run:

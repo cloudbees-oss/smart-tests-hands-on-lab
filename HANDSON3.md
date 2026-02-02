@@ -182,7 +182,7 @@ Update `.github/workflows/pre-merge.yml` as follows:
 +     - name: Smart Tests subset
 +       run: |
 +         smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
-+         smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
++         smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
 +         cat smart-tests-subset.txt
       - name: Test
         run: mvn test
@@ -194,7 +194,7 @@ Update `.github/workflows/pre-merge.yml` as follows:
 - name: Smart Tests subset
   run: |
     smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
-    smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
+    smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
     cat smart-tests-subset.txt
 ```
 
@@ -283,9 +283,9 @@ evaluate its performance & roll out. In this workshop, we can skip this step and
 ```diff
       - name: Smart Tests subset
         run: |
-          smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
--         smart-tests subset --session @session.txt --observation --target 50% maven src/test/java > smart-tests-subset.txt
-+         smart-tests subset --session @session.txt --target 50% maven src/test/java > smart-tests-subset.txt
+-        smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
++        smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
+         smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
       - name: Test
         run: mvn test
 ```
