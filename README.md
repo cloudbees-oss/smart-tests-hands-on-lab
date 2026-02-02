@@ -1,5 +1,4 @@
-
-# Launchable Smart Tests Workshop
+# CloudBees Smart Tests Workshop
 
 ## Workshop Overview
 
