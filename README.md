@@ -1,12 +1,6 @@
 # CloudBees Smart Tests Workshop
 
-## Workshop Overview
-
 Welcome to the CloudBees Smart Tests Workshop! This hands-on session is designed to help you implement predictive test selection and analysis within your Git repositories. Throughout this workshop, you'll optimize your test pipeline to ensure that only the most relevant tests are executed with every code change.
-
-### Value of CloudBees Smart Tests Automation
-
-CloudBees Smart Tests enhance the efficiency of this pyramid by automating predictive test selection. Through its intelligent analysis, Smart Tests selects the most relevant set of tests to run, reducing redundancy and maximizing resource efficiency. This automation ensures rapid feedback loops, minimizes the risk of regressions, and supports a robust Continuous Integration (CI) approach.
 
 ## Goals
 
