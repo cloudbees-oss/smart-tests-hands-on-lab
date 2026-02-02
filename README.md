@@ -2,23 +2,11 @@
 
 ## Workshop Overview
 
-Welcome to the Launchable Smart Tests Workshop! This hands-on session is designed to help you implement predictive test selection and analysis within your Git repositories. Throughout this workshop, you'll optimize your test pipeline to ensure that only the most relevant tests are executed with every code change.
+Welcome to the CloudBees Smart Tests Workshop! This hands-on session is designed to help you implement predictive test selection and analysis within your Git repositories. Throughout this workshop, you'll optimize your test pipeline to ensure that only the most relevant tests are executed with every code change.
 
-## Testing Pyramid and Best Practices
+### Value of CloudBees Smart Tests Automation
 
-Understanding the Testing Pyramid is crucial for structuring your test suite efficiently:
-
-- **Unit Tests (Base Layer):** These are fast, low-level tests that validate individual components or functions without external dependencies.
-- **Service Tests (Middle Layer):** Focus on the integration between multiple components. These tests are slightly slower and higher-level than unit tests.
-- **UI Tests (Top Layer):** High-level tests that simulate user interactions and ensure end-to-end system functionality. These are slower but critical for verifying user interface behaviors.
-
-**Best Practices:**
-- Aim to have a large number of unit tests, fewer service tests, and even fewer UI tests.
-- Execute tests with clear objectives, covering both functionality and potential edge cases.
-
-### Value of Launchable Smart Tests Automation
-
-Launchable Smart Tests enhance the efficiency of this pyramid by automating predictive test selection. Through its intelligent analysis, Smart Tests selects the most relevant set of tests to run, reducing redundancy and maximizing resource efficiency. This automation ensures rapid feedback loops, minimizes the risk of regressions, and supports a robust Continuous Integration (CI) approach.
+CloudBees Smart Tests enhance the efficiency of this pyramid by automating predictive test selection. Through its intelligent analysis, Smart Tests selects the most relevant set of tests to run, reducing redundancy and maximizing resource efficiency. This automation ensures rapid feedback loops, minimizes the risk of regressions, and supports a robust Continuous Integration (CI) approach.
 
 ## Goals
 
