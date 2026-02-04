@@ -10,15 +10,11 @@ If your production code are split among multiple repositories, we recommend you 
 You need an API token to use Smart Test.
 Go to your workspace’s Settings > API Token and generate a new token.
 
-**Node:** If you haven’t created a workspace yet, please refer to `SIGN_UP.md` to set one up.
+**Node:** If you haven’t created a workspace yet, please refer to [SIGN_UP.md](SIGN_UP.md) to set one up.
 
-<img src="https://github.com/user-attachments/assets/1f17be96-acf9-4825-8f9f-06790a14dc1c" width="50%">
+<img src="https://github.com/user-attachments/assets/e57fad93-6da6-4eb1-aa37-da2c139804a4" width="50%" />
 
 <br>
-
-Click the **Create a new API key**
-
-<img src="https://user-images.githubusercontent.com/536667/191438711-b15eb234-e3d5-4ba2-b2fb-11d0ebd92d18.png" width="50%">
 
 Click **Copy** key and copy API key.
 
