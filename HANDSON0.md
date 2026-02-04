@@ -21,24 +21,11 @@ The following are prerequisites for this workshop:
 
 You interact with Smart Tests using a command line tool called `smart-tests`.
 
-You can install it with pip:
+You can install it with [uv](https://docs.astral.sh/uv/):
 
 ```
-pip3 install --upgrade smart-tests-cli~=2.0
+uv tool install smart-tests-cli~=2.0
 ```
-
-> [!TIP]
-> If you encounter `externally managed error`
-> <details>
->
-> Try installing `pipx` and use it.
-> see: https://pipx.pypa.io/stable/installation/
->
-> ```
-> pipx install smart-tests-cli~=2.0
-> ```
-> </details>
-
 
 Let's check that it's installed correctly:
 
