@@ -4,20 +4,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.launchableinc</groupId>
-  <artifactId>launchable-demo</artifactId>
+  <groupId>com.cloudbees</groupId>
+  <artifactId>smart-tests-demo</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <name>launchable-demo</name>
-  <url>https://launchableinc.com/</url>
-  <description>Launchable DEMO</description>
-
-  <scm>
-    <connection>scm:git:git@github.com:launchableinc/demo.git</connection>
-    <url>scm:git:git@github.com:launchableinc/demo.git</url>
-    <developerConnection>scm:git:git@github.com:launchableinc/demo.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
+  <name>smart-tests-demo</name>
+  <url>https://cloudbees.com/</url>
+  <description>CloudBees Smart Tests DEMO</description>
 
   <developers>
     <developer>

@@ -22,7 +22,7 @@ A build is a specific version of your software that you are testing. It can cons
 
 > **build** represents the software. Each time you send test results to Smart Test, you record them against a specific build so that Smart Tests know that you ran X tests against Y software with Z results.
 
-refs: [Documentation](https://www.launchableinc.com/docs/concepts/build/)
+refs: [Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/concepts/build)
 
 Therefore, before you run your tests, you record a build using `smart-tests record build`.
 
@@ -48,7 +48,7 @@ What just happened? Smart Tests recorded the current HEAD of your local reposito
 using the name given.
 
 >[!NOTE]
-> If you have multiple repositories, please check [this document](https://www.launchableinc.com/docs/sending-data-to-launchable/using-the-launchable-cli/recording-builds-with-the-launchable-cli/recording-builds-from-multiple-repositories/) to let Smart Tests know that the build consists of your repositories.
+> If you have multiple repositories, please check [this document](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/sending-data-to-smart-tests/recording-builds/recording-builds-from-multiple-repositories) to let Smart Tests know that the build consists of your repositories.
 
 
 Since this was the first time you recorded a build, Smart Tests needed to transfer relatively
@@ -60,7 +60,7 @@ But subsequent calls to `smart-tests record build` will be much faster, because 
 ## Request and inspect a subset to test
 Now, you declare the start of a new test session; A test session is an act of running tests against a specific build. Test selection and recording of test results are done against a test session.
 
- refs: [Documentation](https://www.launchableinc.com/docs/concepts/test-session/)
+ refs: [Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/concepts/test-session)
 
  ```
  smart-tests record session --build mychange1 --test-suite my-test-suite > session.txt

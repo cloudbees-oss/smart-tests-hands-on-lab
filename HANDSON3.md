@@ -3,7 +3,7 @@
 In this section, you will use a toy Java project in this repository and its delivery workflow based on GitHub Action as an example, to gain better understanding of how to use Smart Tests in your CI workflow.
 
 # Before you start
-Your instructor should have created a pull request to `launchableinc/hands-on-lab`. This is where the toy Java
+Your instructor should have created a pull request to `cloudbees-oss/smart-tests-hands-on-lab`. This is where the toy Java
 project resides, and in this PR we'll modify its CI pipeline.
 
 # Integrating with Smart Tests
@@ -171,7 +171,7 @@ Now, we will start a test session. We have also looked at this in Lab 2.
 ## Add Smart Tests subset command
 We will first obtain the subset of tests that should be run for this build. then pass it to the test runner, which is Maven in this case.
 
-Notice the `--observation` flag. This is [the training wheel mode](https://www.launchableinc.com/docs/features/predictive-test-selection/observing-subset-behavior/). With this flag, Smart Test
+Notice the `--observation` flag. This is [the training wheel mode](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/features/predictive-test-selection/observing-subset-behavior). With this flag, Smart Test
 will go through all the motions, except for actually returning all the tests. We'll use this mode
 to observe the behavior/performance of the test selection, hence the name.
 

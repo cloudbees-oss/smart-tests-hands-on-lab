@@ -32,6 +32,6 @@ Welcome to the CloudBees Smart Tests Workshop! This hands-on session is designed
 
 ## Reference Materials
 
-- [Smart Tests Documentation](https://www.launchableinc.com/docs/)
+- [Smart Tests Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/)
 
 Explore the documentation for comprehensive insights and advanced features. This workshop aims to revolutionize your testing strategy with AI-driven precision and automated efficiency. Enjoy the process!
