@@ -36,4 +36,4 @@ jobs:
           smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
           cat smart-tests-subset.txt
       - name: Test
-        run: mvn test
+        run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
