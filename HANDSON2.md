@@ -29,7 +29,7 @@ Therefore, before you run your tests, you record a build using `smart-tests reco
 Move to the locally checked out copy of your software, check out its main branch,
 and run the following command to record a build:
 ```
-smart-tests record build --build mychange1
+smart-tests record build --build baseline
 ```
 If you see a message like this, it was successful:
 
@@ -63,25 +63,29 @@ Now, you declare the start of a new test session; A test session is an act of ru
  refs: [Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/concepts/test-session)
 
  ```
- smart-tests record session --build mychange1 --test-suite my-test-suite > session.txt
+ smart-tests record session --build baseline --test-suite my-test-suite > session.txt
  ```
 
 When you record a new test session, Smart Tests will return a session ID, which is stored in `session.txt` file.
 
-Now, let's have Smart Tests select the best set of tests to run for this test session.
+Now, let's have Smart Tests create a subset of the tests... except, we don't know the right size of the subset to create, so instead we'll select all the tests. Smart Tests still produce tests in the relevance order, so this way we can see how tests are ranked:
 
- ```
- smart-tests subset file --session @session.txt --use-case one-commit --get-tests-from-guess > subset.txt
- less subset.txt
+```
+smart-tests subset file --session @session.txt --get-tests-from-guess > subset.txt
+```
+
+Let's see what's inside:
+```
+less subset.txt
 ```
 
 Since you haven't run any tests yet, Smart Tests will select files in your repository
-that looks like tests (`--get-tests-from-guess`), and order them such that tests relevant to most recent change (`--use-case one-commit`) are prioritized.
+that looks like tests (`--get-tests-from-guess`).
 
 The output will look like this:
 
 ```
-Smart Tests created subset <SUBSET_ID> for build mychange1 (test session <TEST_SESSION_ID>) in workspace <ORG>/<WORKSPACE>
+Smart Tests created subset <SUBSET_ID> for build baseline (test session <TEST_SESSION_ID>) in workspace <ORG>/<WORKSPACE>
 
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
@@ -117,13 +121,18 @@ git commit --all --message test
 We now have a new software version to test, so we need to record it as a new build:
 
 ```
-smart-tests record build --build mychange2
+smart-tests record build --build mychange
 ```
 
-Create a new test session against the new build and request a subset again:
+Create a new test session against the new build:
 
 ```
-smart-tests record session --build mychange2 --test-suite my-test-suite > session2.txt
+smart-tests record session --build mychange --test-suite my-test-suite > session2.txt
+```
+
+Now, let's have Smart Tests sort the tests by their relevance to your change (`--use-case one-commit`):
+
+```
 smart-tests subset file --session @session2.txt --use-case one-commit --get-tests-from-guess > subset2.txt
 ```
 
