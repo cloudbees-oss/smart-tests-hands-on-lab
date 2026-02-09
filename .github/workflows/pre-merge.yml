@@ -13,11 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@v4
         with:
           java-version: 21
           distribution: "adopt"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install Smart Tests CLI
+        run: pip install --user --upgrade smart-tests-cli~=2.0
+      - name: Smart Tests verify
+        run: smart-tests verify
+      - name: Smart Tests record build
+        run: smart-tests record build --build ${{ github.run_id }}
       - name: Compile
         run: mvn compile
+      - name: Smart Tests subset
+        run: |
+          smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
+          smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
+          cat smart-tests-subset.txt
       - name: Test
-        run: mvn test
+        run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
+      - name: Smart Tests record tests
+        if: always()
+        run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports
