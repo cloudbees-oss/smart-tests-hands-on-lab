@@ -1,4 +1,4 @@
-// demonstration change
+// demonstration change for the SmartTests
 package example;
 
 public class Add {
