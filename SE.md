@@ -17,18 +17,23 @@ This allows the workshop to start with the customer’s own test data visible in
 * Create an organization in [Unify Admin tools](http://admin-tools.cloudbees.io/) if it doesn't exist. Add yourself.
 * Invite the workshop participants to the organization
 * Go to [customer success storefront](https://cloudbees.atlassian.net/wiki/spaces/LCHCTS/pages/4448921585/Storefront+Launchable+Customer+Success),
-  use the workspace flag app to (1) enable PTS v2, and (2) failure fast.
-* Fork GitHub [cloudbees-oss/smart-tests-hands-on-lab](http://github.com/cloudbees-oss/smart-tests-hands-on-lab/) to
+   and use the [workspace flag app](https://launchableinc.retool.com/apps/35915976-8697-11ef-88ca-d3dd93c47314/admin%20operation/Workspace%20flags) to (1) enable PTS v2, and (2) failure fast.
+* Preparing repositories to be used during the workshop:
+  * For Lab 2
+    * When attempted with a customer - they prepare their own repositories for use. This is communicated under under [Lab 0 pre-requisites](https://github.com/cloudbees-oss/smart-tests-hands-on-lab/blob/samyak-SE-feedback/HANDSON0.md#lab-0-prerequisites).
+    * When attempted by the SE - you will need to bring your own demo applications or an open source repository
+  * For Lab 3
+    * Fork GitHub [cloudbees-oss/smart-tests-hands-on-lab](http://github.com/cloudbees-oss/smart-tests-hands-on-lab/) to
   [the cloudbees-days org](https://github.com/cloudbees-days)
   with a unique name, e.g. `workshop-20251225`
-* Add the workshop participants as collaborators to the forked repository.
-* Create a PR from the main branch of the forked repository to `cloudbees-oss/smart-tests-hands-on-lab` main branch.
+    * Add the workshop participants as collaborators to the forked repository.
+    * Create a PR from the main branch of the forked repository to `cloudbees-oss/smart-tests-hands-on-lab` main branch.
   (You'll have to create some dummy commit to create a PR.)
-* In the description of the PR, add the link to edit page of `.github/workflows/pre-merge.yml` so that the participants
+    * In the description of the PR, add the link to edit page of `.github/workflows/pre-merge.yml` so that the participants
   can easily edit the workflow file without getting lost in the GitHub UI. This link should look like this:
   `https://github.com/cloudbees-days/workshop-20251225/edit/main/.github/workflows/pre-merge.yml`
 
-## Actions from participants
+## Actions required from participants
 * Provide GitHub user ID and email address
 * Follow the invitation link to sign up and obtain access to the workspace
 * Have them follow [Lab 0](HANDSON0.md) to ensure they have the prerequisites ready
