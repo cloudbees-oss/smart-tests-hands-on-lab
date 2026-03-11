@@ -71,7 +71,8 @@ When you record a new test session, Smart Tests will return a session ID, which 
 Now, let's have Smart Tests create a subset of the tests... except, we don't know the right size of the subset to create, so instead we'll select all the tests. Smart Tests still produce tests in the relevance order, so this way we can see how tests are ranked:
 
 ```
-smart-tests subset file --session @session.txt --get-tests-from-guess > subset.txt
+find jstests/ -type f -name '*.js' | sort > tests.txt
+cat tests.txt | smart-tests subset --session @session.txt --use-case one-commit file > subset.txt
 ```
 
 Let's see what's inside:
@@ -133,7 +134,7 @@ smart-tests record session --build mychange --test-suite my-test-suite > session
 Now, let's have Smart Tests sort the tests by their relevance to your change (`--use-case one-commit`):
 
 ```
-smart-tests subset file --session @session2.txt --use-case one-commit --get-tests-from-guess > subset2.txt
+cat tests.txt | smart-tests subset file --session @session2.txt --use-case one-commit > subset2.txt
 ```
 
 Compare the results between the first and the second subsets. First, get the subset IDs from the output of the subset commands, then run:
