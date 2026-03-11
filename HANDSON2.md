@@ -80,9 +80,6 @@ Let's see what's inside:
 less subset.txt
 ```
 
-Since you haven't run any tests yet, Smart Tests will select files in your repository
-that looks like tests (`--get-tests-from-guess`).
-
 The output will look like this:
 
 ```
