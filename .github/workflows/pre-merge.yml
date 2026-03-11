@@ -22,6 +22,8 @@ jobs:
           python-version: '3.13'
       - name: Install Smart Tests CLI
         run: pip install --user --upgrade smart-tests-cli~=2.0
+      - name: Smart Tests verify
+        run: smart-tests verify
       - name: Compile
         run: mvn compile
       - name: Test
