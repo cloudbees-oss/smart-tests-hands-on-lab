@@ -72,7 +72,7 @@ Now, let's have Smart Tests create a subset of the tests... except, we don't kno
 
 ```
 find jstests/ -type f -name '*.js' | sort > tests.txt
-cat tests.txt | smart-tests subset --session @session.txt --use-case one-commit file > subset.txt
+cat tests.txt | smart-tests subset --session @session.txt file > subset.txt
 ```
 
 Let's see what's inside:
