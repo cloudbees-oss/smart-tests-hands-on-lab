@@ -1,149 +1,343 @@
-# Lab 2. Try predictive test selection
+# Lab 2: PTS integration into a mock CI workflow
 
-In this section, you will test drive Predictive Test Selection (PTS) on your own computer.
-Along the way, you will learn the major concepts of Smart Test.
+## Overview
 
-## Clone your repository
-To experiment with Smart Tests, first, let's clone your repository locally.
-How to do this depends on your project.
+**Goal**: Gain a better understanding of how to integrate & setup Predictive Test Selection into your CI workflow. We will use a toy Java project in this repository and update its GitHub Actions workflow as an example to do this.
 
-If you already cloned repository, please skip cloning the repository and move to the repo directory.
+**What you will do**:
+* Install Smart Tests CLI & Verify connection
+* Add build recording information
+* Add subset command
+* Update test run job to pick up subset instead of full test list
+* Add test result reporting command
+* Remove `--observation` flag to “go live” from next run
+
+## Step 1: Open the PR to modify the workflow
+
+Your instructor should have created a pull request to cloudbees-oss/smart-tests-hands-on-lab and shared it with you. Use this PR to modify the workflow sequentially through the lab.
+
+* In the PR description, click **edit CI script** to open the workflow in GitHub’s editor
+* Confirm you are editing: `.github/workflows/pre-merge.yml`
+
+## Step 2: Install Smart Tests CLI & Verify connection
+
+### Goal
+
+Install Smart Tests CLI in the workflow and confirm CI can authenticate to Smart Tests.
+
+### Do
+
+First of all, update `.github/workflows/pre-merge.yml` as follows:
+
+```diff
+        with:
+          java-version: 21
+          distribution: "adopt"
++     - uses: actions/setup-python@v5
++       with:
++         python-version: '3.13'
++     - name: Install Smart Tests CLI
++       run: pip install --user --upgrade smart-tests-cli~=2.0
+      - name: Compile
+        run: mvn compile
+```
+<details>
+<summary>Raw text for copying here</summary>
 
 ```
-git clone ...
-cd your/repository
+- uses: actions/setup-python@v5
+  with:
+    python-version: '3.13'
+- name: Install Smart Tests CLI
+  run: pip install --user --upgrade smart-tests-cli~=2.0
 ```
 
-## Capture software under test
+</details>
+<br>
 
-In order to select the right tests for your software, Smart Tests need to know what software you are testing. We call this a **build**.
+Next, we will add the `smart-tests verify` command to the workflow as well.
 
-A build is a specific version of your software that you are testing. It can consist of multiple Git repositories, and in each repository, it points to a specific commit. A build is identified by its name.
-
-> **build** represents the software. Each time you send test results to Smart Test, you record them against a specific build so that Smart Tests know that you ran X tests against Y software with Z results.
-
-refs: [Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/concepts/build)
-
-Therefore, before you run your tests, you record a build using `smart-tests record build`.
-
-Move to the locally checked out copy of your software, check out its main branch,
-and run the following command to record a build:
+Update `.github/workflows/pre-merge.yml` as follows:
+```diff
+       - name: Install Smart Tests CLI
+         run: pip install --user --upgrade smart-tests-cli~=2.0
++      - name: Smart Tests verify
++        run: smart-tests verify
+       - name: Compile
+         run: mvn compile
+       - name: Test
 ```
-smart-tests record build --build baseline
-```
-If you see a message like this, it was successful:
+
+<details>
+<summary>Raw texts for copying</summary>
 
 ```
-Launchable recorded 2 more commits from repository <YOUR PATH>
-Launchable recorded build hands-on to workspace <YOUR ORG/WORKSPACE> with commits from 1 repository:
+- name: Smart Tests verify
+  run: smart-tests verify
+```
+
+</details>
+<br>
+
+Finally, add these changes to the PR by clicking on **Commit changes**.
+
+<img width="407" height="151" alt="image" src="https://github.com/user-attachments/assets/7687ca9e-2c30-4c2b-bf0c-c093d65c7f21" />
+
+(Commit directly to the branch, as opposed to create a new branch)
+
+When the commit goes through, come back to the PR page to see the newly added commit. Depending on the status of the CI run, you will see one of the icons on the left of the commit hash:
+
+<img width="672" height="83" alt="image" src="https://github.com/user-attachments/assets/afb51dd1-353f-4b6d-b453-e47c37f7184e" />
+
+* 🟡 if a CI run is ongoing
+* ❌ if a CI run has failed
+* ✔️ if a CI run has completed successfully
+* None if a CI run hasn't started, or if there was a syntax error in the edit you just made.
+
+> [!TIP]
+> You might have to reload the page to see the commit and its status updated.
+
+Using the following screenshot as an example, click the status symbol, and select "details" to jump to the CI log.
+
+<img width="723" height="169" alt="image" src="https://github.com/user-attachments/assets/997dd7ef-87a7-4d8d-b917-b37d5b46895a" />
+
+### Verify
+
+If everything goes as expected, in the "Smart Tests verify" section, you should see a message like this:
+
+```
+Organization: launchable-demo
+Workspace: hands-on-lab
+Proxy: None
+Platform: 'Linux-6.8.0-1017-azure-x86_64-with-glibc2.39'
+Python version: '3.13.0'
+Java command: 'java'
+smart-tests version: '2.2.0'
+Your CLI configuration is successfully verified 🎉
+```
+
+## Step 3: Add record build command
+
+### Goal
+Ensure Smart Tests can see commit history and record a build for each CI run.
+
+### Do
+
+First, enable full git history. 
+
+Update `.github/workflows/pre-merge.yml` as follows:
+```diff
+steps:
+       - uses: actions/checkout@v5
++        with:
++          fetch-depth: 0
+       - uses: actions/setup-java@v4
+         with:
+           java-version: 11
+```
+
+<details>
+<summary>Raw text for copying</summary>
+
+```
+with:
+  fetch-depth: 0
+```
+
+</details>
+<br>
+
+Then, add a command for recording build.
+
+Update `.github/workflows/pre-merge.yml` as follows:
+```diff
+run: pip install --user --upgrade smart-tests-cli~=2.0
+       - name: Smart Tests verify
+         run: smart-tests verify
++      - name: Smart Tests record build
++        run: smart-tests record build --build ${{ github.run_id }}
+       - name: Compile
+         run: mvn compile
+   worker-node-1:
+```
+
+<details>
+<summary>Raw text for copying</summary>
+
+```
+- name: Smart Tests record build
+  run: smart-tests record build --build ${{ github.run_id }}
+```
+
+</details>
+<br>
+
+### Verify
+
+Commit changes directly to your branch by clicking on **Commit changes**. If the setup is successful, you will see logs similar to the following:
+
+```
+Launchable recorded 1 commit from repository /home/runner/work/hands-on/hands-on
+Launchable recorded build 3096604891 to workspace organization/workspace with commits from 1 repository:
 
 | Name   | Path   | HEAD Commit                              |
 |--------|--------|------------------------------------------|
-| .      | .      | 3f21bfb3d56148c9dcf9f7e811e146bbc3cbf797 |
-
-Visit https://app.launchableinc.com/organizations/<ORG>/workspaces/<WORKSPACE>/data/builds/<BUILD ID> to view this build and its test sessions
+| .      | .      | 5ea0a739271071dfbdacd330b0cc28c307151a04 |
 ```
 
-What just happened? Smart Tests recorded the current HEAD of your local repository as the build,
-using the name given.
+## Step 4: Add subset command (observation mode)
 
->[!NOTE]
-> If you have multiple repositories, please check [this document](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/sending-data-to-smart-tests/recording-builds/recording-builds-from-multiple-repositories) to let Smart Tests know that the build consists of your repositories.
+### Goal
 
+Generate a test subset for this CI build and inspect what Smart Tests would select—without fully “going live” yet.
 
-Since this was the first time you recorded a build, Smart Tests needed to transfer relatively
-large amount of data to its server, including recent commit history, file contents, etc. It
-also has to do a lot of number crunching to prepare for the predictive test selection.
+Observation mode is the ["the training wheel mode"](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/features/predictive-test-selection/observe-subset-behavior). With this flag, Smart Test will go through all the motions, except for actually returning all the tests. We'll use this mode to observe the behavior/performance of the test selection, hence the name.
 
-But subsequent calls to `smart-tests record build` will be much faster, because Smart Tests will only transfer the new commits that you have added since the last build.
+### Do
 
-## Request and inspect a subset to test
-Now, you declare the start of a new test session; A test session is an act of running tests against a specific build. Test selection and recording of test results are done against a test session.
-
- refs: [Documentation](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/concepts/test-session)
-
- ```
- smart-tests record session --build baseline --test-suite my-test-suite > session.txt
- ```
-
-When you record a new test session, Smart Tests will return a session ID, which is stored in `session.txt` file.
-
-Now, let's have Smart Tests create a subset of the tests... except, we don't know the right size of the subset to create, so instead we'll select all the tests. Smart Tests still produce tests in the relevance order, so this way we can see how tests are ranked:
+Update `.github/workflows/pre-merge.yml` as follows:
+```diff
+      - name: Compile
+        run: mvn compile
++     - name: Smart Tests subset
++       run: |
++         smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
++         smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
++         cat smart-tests-subset.txt
+      - name: Test
+        run: mvn test
+```
+<details>
+<summary>Raw text for copying</summary>
 
 ```
-smart-tests subset file --session @session.txt --get-tests-from-guess > subset.txt
+- name: Smart Tests subset
+  run: |
+    smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
+    smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
+    cat smart-tests-subset.txt
 ```
 
-Let's see what's inside:
+</details>
+<br>
+
+Commit changes directly to your branch by clicking on **Commit changes**.
+
+### Verify
+
+If the setup is successful, you will see logs similar to the following, although the details might vary:
+
 ```
-less subset.txt
-```
-
-Since you haven't run any tests yet, Smart Tests will select files in your repository
-that looks like tests (`--get-tests-from-guess`).
-
-The output will look like this:
-
-```
-Smart Tests created subset <SUBSET_ID> for build baseline (test session <TEST_SESSION_ID>) in workspace <ORG>/<WORKSPACE>
-
 |           |   Candidates |   Estimated duration (%) |   Estimated duration (min) |
 |-----------|--------------|--------------------------|----------------------------|
-| Subset    |          120 |                   100.00 |                       0.00 |
-| Remainder |            0 |                     0.00 |                       0.00 |
+| Subset    |            2 |                  36.4706 |                  0.0516667 |
+| Remainder |            2 |                  63.5294 |                  0.09      |
 |           |              |                          |                            |
-| Total     |          120 |                   100.00 |                       0.00 |
+| Total     |            4 |                 100      |                  0.141667  |
 
-Run `smart-tests inspect subset --subset-id <SUBSET_ID>` to view full subset details
+Run `launchable inspect subset --subset-id XXX` to view full subset details
+example.MulTest
+example.DivTest
+example.AddTest
+example.SubTest
 ```
+
+## Step 5: Run tests using subset
+
+### Goal
+Run only the selected tests instead of the full suite.
+
+### Do
+Pass this subset to the test runner.
+
+```diff
+
+      - name: Test
+-       run: mvn test
++       run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
+```
+<details>
+<summary>Raw text for copying</summary>
+
+```
+run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
+```
+
+</details>
+<br>
+
+Commit changes directly to your branch by clicking on **Commit changes**.
+
+### Verify
+
+In the Actions log, Maven runs with: `-Dsurefire.includesFile=smart-tests-subset.txt`
+
+## Step 6: Report test results back to Smart Tests
+
+### Goal
+
+Record test results so Smart Tests can learn and you can view results in the web app.
 
 > [!TIP]
-> Note the **subset ID** (e.g., `<SUBSET_ID>` in the example above). We'll use this ID later to compare
-> how additional changes affect the test selection, so please keep it noted.
+> Important: if tests fail, GitHub Actions can stop the job early—so we use `if: always()` to ensure results are still reported.
 
+### Do
 
-As you run and record test results, Smart Tests will learn from the results and improve its selection.
-Among other things, you will be able to specify the size of the subset you'd like to obtain, for example
-"give me 10 minutes worth of tests to run".
-
-
-
-## Make a change you want to test, and see how that affects the subset
-When a developer makes a change to the code, we want Smart Tests to select the tests that
-are most relevant to that change. To experiment with this, let's make a small change.
-Don't worry, the commit you'll create will stay in your computer.
+Update `.github/workflows/pre-merge.yml` as follows:
+```diff
+      - name: Test
+        run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
++     - name: Smart Tests record tests
++       if: always()
++       run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports
+```
+<details>
+<summary>Raw text for copying</summary>
 
 ```
-vim <UPDATE YOUR APP or TEST CODE>
-git commit --all --message test
+- name: Smart Tests record tests
+  if: always()
+  run: smart-tests record tests maven --session @session.txt ./**/target/surefire-reports
 ```
 
-We now have a new software version to test, so we need to record it as a new build:
+</details>
+<br>
 
+Commit changes directly to your branch by clicking on **Commit changes**.
+
+### Verify
+
+If everything is set up correctly, you can view the test results on Launchable as shown below: (A URL to this page is in the GitHub Actions log)
+
+<img src="https://github.com/user-attachments/assets/f83dd1e6-bf9e-4091-964c-da665ffd764d" width="50%">
+
+You should also see the report from the subset observation:
+
+![image](https://user-images.githubusercontent.com/536667/195477376-500d318a-b67a-4202-8c90-81ca6048dcc4.png)
+
+## Step 7: Go live
+
+If this was a real project, we'd keep the `--observation` flag until we accumulate enough data, then
+evaluate its performance & roll out. In this workshop, we can skip this step and go live right away.
+
+```diff
+      - name: Smart Tests subset
+        run: |
+-        smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
++        smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
+         smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
+      - name: Test
+        run: mvn test
 ```
-smart-tests record build --build mychange
-```
 
-Create a new test session against the new build:
+Let's apply this change and check the result.
 
-```
-smart-tests record session --build mychange --test-suite my-test-suite > session2.txt
-```
+Commit changes directly to your branch by clicking on **Commit changes**.
 
-Now, let's have Smart Tests sort the tests by their relevance to your change (`--use-case one-commit`):
+---
 
-```
-smart-tests subset file --session @session2.txt --use-case one-commit --get-tests-from-guess > subset2.txt
-```
-
-Compare the results between the first and the second subsets. First, get the subset IDs from the output of the subset commands, then run:
-
-```
-smart-tests compare subsets --subset-id-before <SUBSET_ID_1> --subset-id-after <SUBSET_ID_2>
-```
-
-The command should display the rank of every test in those two subsets, and highlight the differences in the rank.
-You should see that the tests relevant to your change bubble up in the rank.
+You have completed the hands-on workshop! 
 
 
-You can now move on to [the next step](HANDSON3.md).
+
+
