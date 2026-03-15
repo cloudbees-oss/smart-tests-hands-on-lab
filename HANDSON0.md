@@ -1,69 +1,123 @@
-# Lab 0. Prerequisites 
+# Lab 0: Pre-requisites & environment setup
 
-The following are prerequisites for this workshop:
+## Overview
 
-1. Look into your internal infosec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code, nor are they used to train any AI models. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
+**Goal**: In this pre-workshop lab, participants are required to check their system requirements, setup their environment with the Smart Tests CLI, and other tasks so that the actual workshop runs smoothly.
 
-1. Provide recent test results data from your actual project in the standardized JUnit XML format described [here](https://github.com/testmoapp/junitxml). This allows us to personalize your workshop experience by pre-populating Smart Tests dashboards and highlighting insights such as _Unhealthy tests_, _Trends_ and _AI-based failure triage_.
-   - Provide **atleast 6 recent runs** worth of test results (ideally spanning 1–2 weeks)
-   - Include runs with both **passing and failing tests**
-   - Make sure `stdout` and `stderr` logs are captured in your reports
-   - If your XML files are in a different format, please contact us.
+**What you will do**:
+* Confirm InfoSec policy requirements internally
+* Prepare & share test results data (JUnit XML files)
+* Install Smart Tests CLI
+* Configure API token & connect to your Unify organization
+* Clone your repository & record a baseline build
 
-1. You need a computer with `git`, `python3` (3.13 or later), and `java` installed.
+## Step 1: Confirm internal InfoSec policies
 
-1. Prepare a repository that contains test code where you want to try PTS. We recommend using a repository you normally work with. (You will not need to push any code during the hands-on.)
+Look into your internal InfoSec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code, nor are they used to train any AI models. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
 
-1. Share your GitHub ID with us, so that we can add you as a collaborator to the workshop.
+## Step 2: Prepare & share test results data (JUnit XML files)
 
-1. Follow the invitation link we send to you, and perform the sign-up process.
+### Goal
+To personalize your workshop experience, we load your recent test results into Smart Tests so you can explore insights (like _Unhealthy tests_, _Trends_ and _AI-based failure triage_) using your own real data. This makes the walkthrough immediately relevant – so you can validate exactly how your data will fit into the information model as well as visualize what use-cases you could achieve.
 
-## Install Smart Tests command
+### Do
+* Provide recent test results data from your actual project in the standardized JUnit XML format as described [here](https://github.com/testmoapp/junitxml).
+* Provide atleast 6 recent runs worth of test results (ideally spanning 1–2 weeks)
+* Include runs with both passing and failing tests
+* Make sure stdout and stderr logs are captured in your reports
+* If your XML files are in a different format, please contact us
 
-You interact with Smart Tests using a command line tool called `smart-tests`.
+### Verify
+Once you share these files with our team, Smart Tests' will extrapolate your test execution history and load that data into a demo workspace. You will be presented a live walkthrough of how your test data looks and feels in the dashboard.
 
-You can install it with [uv](https://docs.astral.sh/uv/):
+## Step 3: Install Smart Tests CLI
 
+### Goal
+Install the smart-tests command line tool.
+
+### Do
+Install using [`uv`](https://docs.astral.sh/uv/): 
 ```
 uv tool install smart-tests-cli~=2.0
 ```
 
-Let's check that it's installed correctly:
-
+### Verify
+To check that it's installed correctly, run:
 ```
 smart-tests --help
 ```
 
+## Step 4: Configure API token & connect to your Unify organization
+
+### Goal
+Configure your CLI so it can authenticate to Smart Tests in CloudBees Unify.
+
+### Do
+* In the Smart Tests web app, go to: Workspace Settings → API Token (as in screenshot below)
+* Generate a token and copy it
+* Set it as an environment variable:
+```
+export SMART_TESTS_TOKEN=<API TOKEN>
+```
 >[!TIP]
-> If `smart-tests` is not found on your `PATH`
-> <details>
-> Run the following command to find out where `pip3` installed the script:
->
-> ```
-> pip3 show --files smart-tests-cli | grep -E 'bin/smart-tests$|^Location'
-> ```
->
-> This command will produce output like this:
->
-> ```
-> Location: /home/kohsuke/anaconda3/lib/python3.13/site-packages
->   ../../../bin/smart-tests
-> ```
->
-> Concatenate two paths to obtain the location, in the example above, that'd be `/home/kohsuke/anaconda3/lib/python3.13/site-packages/../../../bin/smart-tests`, which is `/home/kohsuke/anaconda3/bin/smart-tests`
->
-> Add the directory portion of this to `PATH` by trimming the trailing `smart-tests`, like this:
->
-> ```
-> export PATH=/home/kohsuke/anaconda3/bin:$PATH
-> ```
+>Note: If you haven’t created a workspace yet, please refer to [SIGN_UP.md](SIGN_UP.md) to set one up.
 
-## (Optional) Install Jenkins plugin
-If your CI system is Jenkins, you can install [the Smart Tests Jenkins plugin](launchable.hpi) to your Jenkins
-and have it send your test results to Smart Tests. During the workshop, we will look at the data it collected to
-reveal actionable insights to manage & improve your test suite.
+### Verify
+Run:
+```
+smart-tests verify
+```
+If you see a message like this, you're all set:
+```
+Organization: 'organization'
+Workspace: 'workspace'
+Proxy: None
+Platform: 'Linux-6.10.14-linuxkit-aarch64-with-glibc2.36'
+Python version: '3.11.13'
+Java command: 'java'
+smart-tests version: '2.2.0'
+Your CLI configuration is successfully verified 🎉
+```
 
-When installed and configured, the plugin will automatically send test results Jenkins is seeing to Launchable
-via its `junit` and other compatible steps.
+## Step 5: Clone your repository
 
-Post installation, you need to go to system configuration screen to set the API token.
+### Goal
+Clone the repository you want to evaluate Predictive Test Selection with, onto your local machine and then move into it. 
+
+### Do
+If your repo is already cloned, skip to the cd command.
+```
+git clone ...
+cd your/repository
+```
+
+### Verify
+You should be able to see repo files (for example `ls` shows your project contents)..
+
+## Step 6: Record a baseline build
+
+### Goal
+Tell Smart Tests “this is the exact code version I’m about to test”. In order to select the right tests for to run against your change, Smart Tests need to know what is the software you are testing and what’s changed. This information is a called a build.
+
+### Do
+Check out the main branch, and run the following command to record a build:
+```
+smart-tests record build --build baseline
+```
+
+### Verify
+If you see a message like this, that means it ran successfully:
+
+```
+Smart Tests recorded 2 more commits from repository <YOUR PATH>
+Smart Tests recorded build hands-on to workspace <YOUR ORG/WORKSPACE> with commits from 1 repository:
+
+| Name   | Path   | HEAD Commit                              |
+|--------|--------|------------------------------------------|
+| .      | .      | 3f21bfb3d56148c9dcf9f7e811e146bbc3cbf797 |
+```
+
+----
+
+Congratulations! You finished all the Workshop pre-requisites. During the Smart Tests workshop we will start hands-on with Lab 1.
+
