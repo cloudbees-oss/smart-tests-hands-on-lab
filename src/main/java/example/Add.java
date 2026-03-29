@@ -1,4 +1,4 @@
-// demonstration change
+// demonstration change during workshop 20260226-1
 package example;
 
 public class Add {
