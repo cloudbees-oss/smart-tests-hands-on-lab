@@ -281,48 +281,6 @@ A: Yes, just add `--observation` flag back. Useful if you want to re-evaluate af
 **Q: What about flaky tests?**
 A: Smart Tests has built-in flaky test detection. Flaky tests are often ranked higher to catch regressions. See "Unhealthy Tests" in UI.
 
-## Integration patterns
-
-### Pattern 1: Subset for PRs, full for main
-```yaml
-- name: Smart Tests subset
-  run: |
-    smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
-    smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
-  if: github.event_name == 'pull_request'
-
-- name: Test
-  run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
-  if: github.event_name == 'pull_request'
-
-- name: Test (full)
-  run: mvn test
-  if: github.ref == 'refs/heads/main'
-```
-
-### Pattern 2: Parallel subset + remainder
-```yaml
-subset-tests:
-  steps:
-    - name: Run subset
-      run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
-
-remainder-tests:
-  steps:
-    - name: Run remainder
-      run: mvn test -Dsurefire.excludesFile=smart-tests-subset.txt
-```
-
-### Pattern 3: Conditional subsetting
-```yaml
-- name: Smart Tests subset
-  run: |
-    smart-tests record session --build ${{ github.run_id }} --test-suite unit-test > session.txt
-    smart-tests subset maven --session @session.txt --confidence 75% src/test/java > smart-tests-subset.txt
-```
-
-(Use `--confidence` instead of `--target` to optimize for accuracy rather than speed)
-
 ## Troubleshooting
 
 **Issue:** Tests run but no results recorded
