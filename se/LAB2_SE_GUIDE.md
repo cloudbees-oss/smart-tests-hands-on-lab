@@ -95,7 +95,7 @@ A: Use `--source` flag to specify multiple repo paths. See docs for multi-repo b
 Observation mode lets you:
 1. ✅ See what Smart Tests WOULD select
 2. ✅ Run all tests (no risk)
-3. ✅ Record results to build ML model
+3. ✅ Record results to build up historical data
 4. ✅ Evaluate performance before going live
 
 **Without observation mode:**
@@ -182,10 +182,10 @@ A: Yes, use `smart-tests subset maven --output-exclusion-rules` to get the inver
 - Uses `--session @session.txt` to associate results with the earlier session
 
 ### Why if: always()?
-**Critical for ML learning:**
+**Critical for building accurate historical data:**
 - If tests fail, GitHub Actions stops the job by default
 - Without `if: always()`, Smart Tests never receives failure data
-- ML model needs both passes AND failures to learn
+- Smart Tests needs both passes AND failures to build accurate insights
 
 ### What data is sent?
 From Surefire reports (XML files):
@@ -197,7 +197,7 @@ From Surefire reports (XML files):
 **No source code is sent.**
 
 ### Why is this important?
-This is how Smart Tests learns:
+This is how Smart Tests builds its historical data:
 1. Which tests are slow/fast
 2. Which tests fail frequently
 3. Historical test-to-code relationships
@@ -269,8 +269,8 @@ Remove `--observation` flag to enable actual subsetting. Now only selected tests
 
 **Q: What if we miss a critical test?**
 A:
-- Smart Tests uses ML trained on historical data
-- Selection improves over time
+- Smart Tests uses algorithms based on historical data
+- Selection improves over time as more data is collected
 - Use higher `--target` percentage if risk-averse
 - Consider running remainder tests nightly
 - Monitor initial rollout closely

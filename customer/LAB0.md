@@ -13,12 +13,12 @@
 
 ## Step 1: Confirm internal InfoSec policies
 
-Look into your internal InfoSec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code, nor are they used to train any AI models. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
+Look into your internal InfoSec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
 
 ## Step 2: Prepare & share test results data (JUnit XML files)
 
 ### Goal
-To personalize your workshop experience, we load your recent test results into Smart Tests so you can explore insights (like _Unhealthy tests_, _Trends_ and _AI-based failure triage_) using your own real data. This makes the walkthrough immediately relevant – so you can validate exactly how your data will fit into the information model as well as visualize what use-cases you could achieve.
+To personalize your workshop experience, we load your recent test results into Smart Tests so you can explore insights (like _Unhealthy tests_, _Trends_ and _Failure grouping_) using your own real data. This makes the walkthrough immediately relevant – so you can validate exactly how your data will fit into the information model as well as visualize what use-cases you could achieve.
 
 ### Do
 * Provide recent test results data from your actual project in the standardized JUnit XML format as described [here](https://github.com/testmoapp/junitxml).

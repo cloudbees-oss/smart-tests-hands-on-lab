@@ -11,7 +11,7 @@ Before the workshop, ask the customer to share **JUnit XML reports** from severa
 - Include runs with some test failures** and captured stdout/stderr
 - [File LCHIB ticket](https://cloudbees.atlassian.net/wiki/x/GoE_IgE) to ask the product team for data import
 
-This allows the workshop to start with the customer’s own test data visible in the Smart Tests dashboard (Unhealthy tests, Trends and AI-based failure grouping, etc.)
+This allows the workshop to start with the customer's own test data visible in the Smart Tests dashboard (Unhealthy tests, Trends and Failure grouping, etc.)
 
 ## 1 week prior: Your prep
 * Create an organization in [Unify Admin tools](http://admin-tools.cloudbees.io/) if it doesn't exist. Add yourself.
