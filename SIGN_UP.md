@@ -1,4 +1,4 @@
-# How to Sign Up Launcahble
+# How to Sign Up Smart Tests
 
 ## Sign up CloudBees
 
@@ -46,4 +46,4 @@ Then, connect the repository that you created for the hands-on use.
 
 <img src="https://github.com/user-attachments/assets/545c0a42-e4f6-4d52-8405-f9e227da9862" width="50%">
 
-Finally, click the **Launchable** menu.
+Finally, click the **Smart Tests** menu.
