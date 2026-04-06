@@ -27,7 +27,7 @@ We don't yet have execution history, so we can't calculate an optimization targe
 A: This is expected. We're using `--get-tests-from-guess` to see the full ranking. In production with execution history, you'd specify `--target 50%` or similar.
 
 **Q: Why is duration 0.00?**
-A: Smart Tests doesn't have test duration data yet. After recording actual test results, it will show estimated durations based on historical data.
+A: AI doesn't have test duration data yet to analyze. After recording actual test results, it will show estimated durations based on AI analysis of historical data.
 
 ## Step 2: Make a small code change
 
@@ -57,7 +57,7 @@ A "build" in Smart Tests = a snapshot of the code state (commit SHAs from all re
 - Generates a new ranked list informed by the code change
 
 ### Why `--use-case one-commit`?
-Tells Smart Tests to optimize for "short-lived branch" scenario (vs. long-running feature branches or main branch testing).
+Tells Smart Tests' AI to optimize for "short-lived branch" scenario (vs. long-running feature branches or main branch testing).
 
 ## Step 5: Compare impact on test rankings
 
@@ -87,7 +87,7 @@ Guide customers through this checklist:
 ### What if results are poor?
 - Check: Was the code change too broad or cross-cutting?
 - Check: Are test names/structure representative of what they test?
-- Note: With zero execution history, Smart Tests has limited data - results improve after recording test runs
+- Note: With zero execution history, AI has limited data to analyze - AI analysis improves with more historical data
 - Consider: Schedule follow-up after Lab 2 when execution data exists
 
 ## Troubleshooting
@@ -102,4 +102,4 @@ Guide customers through this checklist:
 - Is the file they changed actually in the repo (not .gitignore'd)?
 
 **Issue:** Rankings seem random
-**Solution:** With zero history, Smart Tests has limited data to work with. Emphasize this improves after Lab 2 when we record actual test results.
+**Solution:** With zero history, AI has limited data to analyze. Emphasize that AI analysis improves after Lab 2 when we record actual test results.

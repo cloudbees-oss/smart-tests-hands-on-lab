@@ -95,7 +95,7 @@ A: Use `--source` flag to specify multiple repo paths. See docs for multi-repo b
 Observation mode lets you:
 1. ✅ See what Smart Tests WOULD select
 2. ✅ Run all tests (no risk)
-3. ✅ Record results to build up historical data
+3. ✅ Record results so AI can analyze historical patterns
 4. ✅ Evaluate performance before going live
 
 **Without observation mode:**
@@ -182,10 +182,10 @@ A: Yes, use `smart-tests subset maven --output-exclusion-rules` to get the inver
 - Uses `--session @session.txt` to associate results with the earlier session
 
 ### Why if: always()?
-**Critical for building accurate historical data:**
+**Critical for AI analysis:**
 - If tests fail, GitHub Actions stops the job by default
 - Without `if: always()`, Smart Tests never receives failure data
-- Smart Tests needs both passes AND failures to build accurate insights
+- AI needs both passes AND failures to provide accurate insights
 
 ### What data is sent?
 From Surefire reports (XML files):
@@ -197,13 +197,13 @@ From Surefire reports (XML files):
 **No source code is sent.**
 
 ### Why is this important?
-This is how Smart Tests builds its historical data:
+This data enables AI to analyze:
 1. Which tests are slow/fast
 2. Which tests fail frequently
 3. Historical test-to-code relationships
 4. Test flakiness patterns
 
-**Without this step:** PTS quality stays static and doesn't improve.
+**Without this step:** AI has no data to analyze and PTS cannot function effectively.
 
 ### Common questions
 
@@ -269,8 +269,8 @@ Remove `--observation` flag to enable actual subsetting. Now only selected tests
 
 **Q: What if we miss a critical test?**
 A:
-- Smart Tests uses algorithms based on historical data
-- Selection improves over time as more data is collected
+- Smart Tests uses AI to analyze historical data and patterns
+- AI analysis improves with more historical data
 - Use higher `--target` percentage if risk-averse
 - Consider running remainder tests nightly
 - Monitor initial rollout closely

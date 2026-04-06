@@ -13,7 +13,7 @@
 
 ## Step 1: Confirm internal InfoSec policies
 
-Look into your internal InfoSec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
+Look into your internal InfoSec policies and make sure you can let CloudBees process your source code during this workshop. Note we do not store your source code, and your data is not used to train AI models. See [data privacy and protection policy](https://docs.cloudbees.com/docs/cloudbees-smart-tests/latest/resources/policies/data-privacy-and-protection) for more details.
 
 ## Step 2: Prepare & share test results data (JUnit XML files)
 
