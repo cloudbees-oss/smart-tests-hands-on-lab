@@ -11,24 +11,17 @@ Welcome to the CloudBees Smart Tests Workshop! This hands-on session is designed
 
 ## Table of Contents
 
-
-
-
-
 - **Lab 0: Prerequisites**
-  - [Step 0. Prerequisites](HANDSON0.md)
+  - [Lab 0. Prerequisites](customer/LAB0.md)
   - Ensure you have the necessary tools and permissions to start the workshop seamlessly.
 
-- **Step 1: Environment Setup**
-  - Set up your local and remote environments to integrate with Smart Tests.
-  - [Lab 1. Environment setup](HANDSON1.md)
+- **Lab 1: Try Predictive Test Selection (PTS) locally**
+  - [Lab 1. Try PTS locally](customer/LAB1.md)
+  - Use Smart Tests CLI to see how PTS re-ranks tests based on code changes.
 
-- **Step 2: Try Predictive Test Selection**
-  - Experiment with PTS by making code changes and observing test selection.
-  - [Lab 2. Try predictive test selection](HANDSON2.md)
-- **Step 3: Incorporate Smart Tests into Your CI Pipeline**
-  - Integrate Smart Tests into your CI pipeline for automated, efficient testing cycles.
-  - [Lab 3. Incorporate Smart Tests into your CI pipeline](HANDSON3.md)
+- **Lab 2: PTS integration into a mock CI workflow**
+  - [Lab 2. CI Integration](customer/LAB2.md)
+  - Integrate Smart Tests into a GitHub Actions workflow.
 
 ## Reference Materials
 

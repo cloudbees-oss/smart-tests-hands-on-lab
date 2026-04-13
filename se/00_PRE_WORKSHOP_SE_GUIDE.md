@@ -11,7 +11,7 @@ Before the workshop, ask the customer to share **JUnit XML reports** from severa
 - Include runs with some test failures** and captured stdout/stderr
 - [File LCHIB ticket](https://cloudbees.atlassian.net/wiki/x/GoE_IgE) to ask the product team for data import
 
-This allows the workshop to start with the customer’s own test data visible in the Smart Tests dashboard (Unhealthy tests, Trends and AI-based failure grouping, etc.)
+This allows the workshop to start with the customer's own test data visible in the Smart Tests dashboard (Unhealthy tests, Trends and Failure grouping, etc.)
 
 ## 1 week prior: Your prep
 * Create an organization in [Unify Admin tools](http://admin-tools.cloudbees.io/) if it doesn't exist. Add yourself.
@@ -19,10 +19,10 @@ This allows the workshop to start with the customer’s own test data visible in
 * Go to [customer success storefront](https://cloudbees.atlassian.net/wiki/spaces/LCHCTS/pages/4448921585/Storefront+Launchable+Customer+Success),
    and use the [workspace flag app](https://launchableinc.retool.com/apps/35915976-8697-11ef-88ca-d3dd93c47314/admin%20operation/Workspace%20flags) to (1) enable PTS v2, and (2) failure fast.
 * Preparing repositories to be used during the workshop:
-  * For Lab 2
-    * When attempted with a customer - they prepare their own repositories for use. This is communicated under under [Lab 0 pre-requisites](https://github.com/cloudbees-oss/smart-tests-hands-on-lab/blob/samyak-SE-feedback/HANDSON0.md#lab-0-prerequisites).
+  * For Lab 1
+    * When attempted with a customer - they prepare their own repositories for use. This is communicated under [Lab 0 pre-requisites](../customer/LAB0.md).
     * When attempted by the SE - you will need to bring your own demo applications or an open source repository
-  * For Lab 3
+  * For Lab 2
     * Fork GitHub [cloudbees-oss/smart-tests-hands-on-lab](http://github.com/cloudbees-oss/smart-tests-hands-on-lab/) to
   [the cloudbees-days org](https://github.com/cloudbees-days)
   with a unique name, e.g. `workshop-20251225`
@@ -36,4 +36,4 @@ This allows the workshop to start with the customer’s own test data visible in
 ## Actions required from participants
 * Provide GitHub user ID and email address
 * Follow the invitation link to sign up and obtain access to the workspace
-* Have them follow [Lab 0](HANDSON0.md) to ensure they have the prerequisites ready
+* Have them follow [Lab 0](../customer/LAB0.md) to ensure they have the prerequisites ready
