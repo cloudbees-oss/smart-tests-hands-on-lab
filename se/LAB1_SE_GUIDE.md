@@ -39,6 +39,9 @@ Customer makes a targeted code change so they can evaluate if Smart Tests detect
 - This makes evaluation clearer - they'll know which tests SHOULD be affected
 - Remind them: this is temporary, won't be merged
 
+### Critical: Identify expected tests upfront
+Before they make the code change, have the customer identify 3-5 specific tests they expect PTS should pick up based on the file they plan to modify. They should write these test names down - this creates concrete expectations they'll validate in Step 5.
+
 ## Step 3: Record a new build
 
 ### What's happening
@@ -69,7 +72,7 @@ Shows side-by-side comparison of test rankings before and after the code change.
 Guide customers through this checklist:
 
 **1. Spot-check expected impacted tests (3-5 tests)**
-- Ask: "Which tests do you expect should be affected by your change?"
+- Reference the 3-5 tests they identified in Step 2
 - For each test, check:
   - **After subset rank**: Did it land reasonably high (e.g., top ~50%)?
   - **Rank movement**: Did it move UP compared to baseline?
