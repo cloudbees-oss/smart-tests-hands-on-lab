@@ -37,3 +37,20 @@ This allows the workshop to start with the customer's own test data visible in t
 * Provide GitHub user ID and email address
 * Follow the invitation link to sign up and obtain access to the workspace
 * Have them follow [Lab 0](../customer/LAB0.md) to ensure they have the prerequisites ready
+
+### Pre-Workshop PTS Validation Exercise
+
+**Context**: Participants (especially QA engineers) may not be familiar enough with the production codebase to independently validate PTS performance during the workshop. Without preparation, they won't know which tests to expect, making validation unclear.
+
+**What the SE needs to do**:
+- Include this assignment in the Lab 0 preparation email
+- Ask participants to complete it 2-3 days before the workshop
+- Do NOT ask participants to share their answers beforehand
+
+**What the customer/participant needs to do**:
+Prepare 3 examples from your codebase (the one you'll use in Lab 2):
+- File change 1 → 3 tests you expect PTS to select
+- File change 2 → 3 tests you expect PTS to select
+- File change 3 → 3 tests you expect PTS to select
+
+Bring these examples to the workshop to validate PTS results during Lab 2.
