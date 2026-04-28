@@ -14,10 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
+      - uses: actions/setup-python@v5
         with:
           java-version: 21
           distribution: "adopt"
+          python-version: '3.13'
       - name: Compile
         run: mvn compile
       - name: Test
         run: mvn test
+      - name: Install Smart Tests CLI
+        run: pip install --user --upgrade smart-tests-cli~=2.0
