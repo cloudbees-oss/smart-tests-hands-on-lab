@@ -11,7 +11,9 @@ jobs:
   PreMergeTest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
@@ -27,3 +29,5 @@ jobs:
         run: mvn test
       - name: Smart Tests verify
         run: smart-tests verify
+      - name: Smart Tests record build
+        run: smart-tests record build --build ${{ github.run_id }}
