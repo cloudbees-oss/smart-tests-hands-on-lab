@@ -23,10 +23,6 @@ jobs:
         with:
           java-version: 21
           distribution: "adopt"
-      - name: Compile
-        run: mvn compile
-      - name: Test
-        run: mvn test
       - name: Smart Tests verify
         run: smart-tests verify
       - name: Smart Tests record build
@@ -36,3 +32,8 @@ jobs:
           smart-tests record session --build ${{ github.run_id }} --observation --test-suite unit-test > session.txt
           smart-tests subset maven --session @session.txt --target 50% src/test/java > smart-tests-subset.txt
           cat smart-tests-subset.txt
+      - name: Compile
+        run: mvn compile
+      - name: Test
+        run: mvn test -Dsurefire.includesFile=smart-tests-subset.txt
+        
